@@ -1,0 +1,7 @@
+.userInfoContainer{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border: 1px solid red;
+}

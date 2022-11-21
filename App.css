@@ -1,0 +1,130 @@
+.App {
+  text-align: center;
+  max-width: 100vw;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Nav-bar {
+  background-color: #282c34;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  /* align-items: center;
+  justify-content: center; */
+  color: white;
+  width: 100%;
+  /* border: blue solid 2px; */
+}
+
+.Nav-bar p {
+  font-size: 20px;
+  margin-right: 10%;
+  /* border: red solid 2px; */
+  height: 30%;
+  cursor: pointer;
+}
+
+.h1-nav {
+  color: #61dafb;
+  float: left;
+  margin-right: 10px;
+  font-size: 25px;
+  /* margin-top: 45px; */
+  /* border: red solid 2px; */
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-nav {
+  float: right;
+  padding: 5px 15px;
+  background: #ccc;
+  border: 0 none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-color: black;
+}
+
+.button-nav {
+  float: right;
+  background-color: #06eded94;
+  width: 170px;
+  border-radius: 5px;
+  border-color: black;
+}
+
+.form-group {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 70px;
+}
+
+.logo-nav {
+  max-width: 250px;
+  max-height: 250px;
+  /* margin-right: 10vw; */
+}
+
+.modal {
+  /* border: red solid 2px; */
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}
+
+.img-div {
+  /* border: solid red 2px; */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 30vw;
+  justify-content: flex-start;
+}
+.signInContainer {
+  /* border: red solid 2px; */
+  width: 10%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
