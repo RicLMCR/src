@@ -14,6 +14,9 @@ describe("calendar render", (): any => {
   const bookBoolean: Boolean = true;
   const setBookBoolean: any = "set Boolean";
   const data: any = "data";
+  const getDay: any = "getDay";
+  const setGetDay: any = "setGetDay";
+
 
   it("should render", () => {
     const cal = render(
@@ -27,6 +30,9 @@ describe("calendar render", (): any => {
         bookBoolean={bookBoolean}
         setBookBoolean={setBookBoolean}
         data={data}
+        getDay={getDay}
+        setGetDay={setGetDay}
+
       />
     );
 

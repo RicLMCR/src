@@ -1,18 +1,60 @@
-.bookTOContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 3vh;;
+.bookTOContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3vh;
 }
 
-.datesList{
-    margin-top:3vh;
+.datesList {
+  margin-top: 3vh;
 }
 
-.dateBookingList{
-    width: 20vw;
-    border-radius: 2px;
-    color: white;
-    background-color: #1890ff;
-    margin: .3em;
+.dateBookingList {
+  display: flex;
+  justify-content: space-between;
+  width: 25vw;
+  color: white;
+  background-color: #1890ff;
+  margin-bottom: 1vh;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.dateBookingList > p {
+  margin-left: 1vw;
+}
+
+.dateBookingHoursInput {
+  height: 3vh;
+  width: 3vw;
+  margin: 1em;
+  color: black;
+}
+
+.bookingButtonContainer {
+  height: 3vh;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dateBookingButtons {
+  height: 5vh;
+  border: none;
+  color: white;
+  background-color: #1890ff;
+  border-radius: 10px;
+}
+
+.buttonSubmit {
+  width: 49%;
+  background-color: rgb(7, 199, 113);
+  margin-right: 0.5em;
+}
+
+.buttonCancel {
+  width: 49%;
+  background-color: rgb(253, 24, 70);
+  margin-left: 0.5em;
 }

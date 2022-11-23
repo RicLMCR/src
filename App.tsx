@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./App.css";
 import Navbar from "./components/navBar/Navbar";
@@ -10,19 +10,26 @@ import SamsComponent from "./components/samsComponent/SamsComponent";
 function App() {
   //user information on login
   const [data, setData] = useState<any>("");
+  const [datesBooked, setDatesBooked] = useState<any>([]);
+
 
   //booking information
   const [dateOne, setDateOne] = useState<Date>();
   const [dateTwo, setDateTwo] = useState<Date>();
-  const [datesBooked, setDatesBooked] = useState<any>([]);
   const [bookBoolean, setBookBoolean] = useState<Boolean>(false);
+  const [getDay, setGetDay] = useState<string>("");
 
-  console.log(data);
-  console.log("dates booked:", datesBooked);
+  //console.log(data);
+  //console.log("dates booked:", datesBooked);
   console.log(data.userId, " I am user id");
-  console.log(data._id, " I am _id");
+  console.log(data);
 
+  //console.log(data._id, " I am _id");
 
+  console.log("datesbooked", datesBooked)
+
+  useEffect(()=>{
+  },[datesBooked]);
 
   return (
     <div className="App">
@@ -38,6 +45,8 @@ function App() {
         bookBoolean={bookBoolean}
         setBookBoolean={setBookBoolean}
         data={data}
+        setGetDay={setGetDay}
+        getDay={getDay}
       />
     </div>
   );

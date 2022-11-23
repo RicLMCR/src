@@ -59,6 +59,7 @@ const NavModal = ({
     fetch(`/api/users/userName/${userName}/userPassword/${userPassword}`)
       .then((res) => res.json())
       .then((data) => setData(data));
+    console.log(data.userId);
     setUsername("");
   };
 
