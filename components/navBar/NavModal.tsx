@@ -2,6 +2,7 @@
 import "../../App.css";
 import { useState } from "react";
 
+
 //! Props Interface
 interface MyProps {
   handleLogOut: any;
@@ -9,6 +10,7 @@ interface MyProps {
   setData: React.Dispatch<React.SetStateAction<string>>;
   setHandleModal: React.Dispatch<React.SetStateAction<boolean>>;
   handleModal: boolean;
+  setLoading: any
 }
 
 //! Function
@@ -16,13 +18,14 @@ const NavModal = ({
   handleLogOut,
   data,
   setData,
-  setHandleModal,
   handleModal,
+  setLoading
 }: MyProps): any => {
   // States
   const [userName, setUsername] = useState<string>("");
   const [userPassword, setPassword] = useState<string>("");
   const [userCreated, setUserCreated] = useState<any>("");
+
 
   // Post request to create new user
   const handleCreate = (e: any) => {
@@ -59,9 +62,16 @@ const NavModal = ({
     fetch(`/api/users/userName/${userName}/userPassword/${userPassword}`)
       .then((res) => res.json())
       .then((data) => setData(data));
-    console.log(data.userId);
+    console.log(data);
+    setLoading(true);
     setUsername("");
+    window.setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
   };
+
+
 
   return handleModal ? (
     <div className="modal">
@@ -98,6 +108,6 @@ const NavModal = ({
       </form>
     </div>
   ) : null;
-};
+}
 
 export default NavModal;

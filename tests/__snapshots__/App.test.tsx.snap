@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tests that the app its self renders correctly App renders correctly 1`] = `
+<div
+  className="App"
+>
+  <div
+    className="Nav-bar"
+  >
+    <div
+      className="img-div"
+    >
+      <img
+        alt="logo"
+        className="logo-nav"
+      />
+    </div>
+    <h2
+      className="h1-nav"
+    >
+      Paid Time Off 
+    </h2>
+    <h2
+      className="h1-nav"
+    >
+      Logged in: 
+    </h2>
+    <div
+      className="signInContainer"
+    >
+      <p
+        onClick={[Function]}
+      >
+        Sign In
+      </p>
+    </div>
+  </div>
+  <div
+    className="bodyContent"
+  >
+    <div
+      className="userInfoContainer"
+    >
+      <div>
+         
+        <h2>
+          Sign in
+        </h2>
+      </div>
+      <input
+        className="button-nav"
+        onClick={[Function]}
+        type="submit"
+        value="Holidays"
+      />
+    </div>
+  </div>
+</div>
+`;

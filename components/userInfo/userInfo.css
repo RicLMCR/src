@@ -1,7 +1,19 @@
-.userInfoContainer{
-    width: 40%;
+.userInfoContainer {
+    width: 25%;
+    height: 80vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    border: 1px solid red;
+    justify-content: flex-start;
+    background-color: #1890ff;
+    border-radius: 10px;
+    margin: 3vh 0 0 3vh;
+
+}
+
+
+.loading-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

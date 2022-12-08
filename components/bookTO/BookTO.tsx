@@ -4,6 +4,7 @@ import "./bookTO.css";
 import { getFetch } from "../fetchRequests/FetchReq";
 import { logDOM } from "@testing-library/react";
 import { useState } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 //Prop Interface
 interface MyProps {
@@ -18,6 +19,7 @@ interface MyProps {
   data: any;
   setGetDay: React.Dispatch<React.SetStateAction<string>>;
   getDay: string;
+  loading: boolean;
 }
 
 //booking component
@@ -33,10 +35,12 @@ const BookTO = ({
   data,
   setGetDay,
   getDay,
+  loading,
 }: MyProps) => {
   const [hoursArray, setHoursArray] = useState<number[]>([]);
   const [datesArray, setDatesArray] = useState<Object[]>([]);
   const [datesArray2, setDatesArray2] = useState<Object[]>([]);
+  const [defaultHours, setDefaultHours] = useState<number | undefined>();
   //pass date start/end to state
   const handleDate: Function = (dates: any) => {
     setDateOne(dates[0]._d);
@@ -44,7 +48,6 @@ const BookTO = ({
   };
 
   //Calculate dates within booking range
-
   const getDatesInRange = (dateOne: Date, dateTwo: Date) => {
     //if both date states are true then create dates to fill
     if (dateOne && dateTwo) {
@@ -56,7 +59,6 @@ const BookTO = ({
       //for each date within the range, push object (containing date, day, id and hours) to temp array
       while (date <= dateTwo!) {
         getDay = date.toString().substring(0, 3);
-        // console.log(getDay, "I am day");
         const newDate = new Date(date).toISOString().split("T")[0];
         dates.push({ date: newDate, id: id, day: getDay });
         date.setDate(date.getDate() + 1);
@@ -71,8 +73,12 @@ const BookTO = ({
   //On submit, trigger date range calculation
   const handleDates: Function = (e: any) => {
     e.preventDefault();
-    getDatesInRange(dateOne, dateTwo);
-    setBookBoolean(true);
+    if (dateOne || dateTwo) {
+      getDatesInRange(dateOne, dateTwo);
+      setBookBoolean(true);
+    } else {
+      alert("please enter two dates");
+    }
   };
 
   //Add selected hours to booking object
@@ -80,84 +86,127 @@ const BookTO = ({
     console.log("handle hours", hours, id);
     datesBooked[id].hours = hours;
     setDatesArray(datesBooked);
-    console.log(datesArray, "I AM DATES ARAYYYYYYYY");
   };
 
   //Post booking
   const handleSubmitBooking = () => {
-    //! verify user id available
-    // if (data) {
-    //   if (datesBooked) {
-    //     getFetch(datesBooked, data);
-    //     console.log("handleSubmitBook", datesBooked, data);
-    //   }
-    // }
-    // if (datesBooked) {
-    //   getFetch(datesBooked, data);
-    //   console.log("handleSubmitBook", datesBooked, data);
-    // }
-    // for (let i = 0; i < datesBooked.length; i++) {
     if ("hours" in datesBooked[datesBooked.length - 1]) {
       getFetch(datesBooked, data);
-      console.log(datesBooked, "LOOOOOOOOP");
     }
-    // }
+    //! verify user id available
+    console.log("handlesubmit", datesBooked, data);
+    setBookBoolean(false);
+
+    // pop up
+    alert("Congrats on your bookings!");
+    console.log("Congrats on your bookings!");
+
+    //clear date states
+    setDateOne(null);
+    setDateTwo(null);
   };
 
-  return (
-    <div className="bookTOContainer">
-      <h1>Book Time Off Here</h1>
+  //Hours Default Value
+  let hours: number;
 
-      <Space>
-        <DatePicker.RangePicker
-          picker="date"
-          onChange={(dates: any) => handleDate(dates)}
-        />
-        <button className="dateBookingButtons" onClick={(e) => handleDates(e)}>
-          Confirm Dates
-        </button>
-      </Space>
-      <div className="datesList">
-        {bookBoolean ? (
-          <div>
-            <h2>You have requested:</h2>{" "}
-            {datesBooked.map((date: any, index: any) => (
-              <div className="dateBookingList" key={index}>
-                <p>
-                  {date.day} {date.date}
-                </p>
-                <p>Enter Hours</p>
-                <input
-                  className="dateBookingHoursInput"
-                  type="number"
-                  max="24"
-                  min="0"
-                  onChange={(e) => handleHours(e.target.value, index)}
-                  required
-                />
-              </div>
-            ))}
-            <div className="bookingButtonContainer">
-              <button
-                className="dateBookingButtons buttonSubmit"
-                onClick={handleSubmitBooking}
-              >
-                Submit
-              </button>
-              <button
-                className="dateBookingButtons buttonCancel"
-                onClick={() => setBookBoolean(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
+  if (loading === true) {
+    return (
+      <div className="loading-circle">
+        <ClipLoader color={"#000000"} size={50} />
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="bookTOContainer">
+        <h1>Book Time Off Here</h1>
+        <Space>
+          <DatePicker.RangePicker
+            picker="date"
+            onChange={(dates: any) => handleDate(dates)}
+          />
+          <button
+            className="dateBookingButtons"
+            onClick={(e) => handleDates(e)}
+          >
+            Confirm Dates
+          </button>
+        </Space>
+        <div className="datesList">
+          {bookBoolean ? (
+            <div>
+              <h2>You have requested:</h2>{" "}
+              {datesBooked.map((date: any, index: any) => {
+                if (datesBooked) {
+                  switch (date.day) {
+                    case "Sun":
+                    case "Sat":
+                      hours = 0;
+
+                      break;
+                    case "Mon":
+                    case "Tue":
+                    case "Wed":
+                    case "Thu":
+                      hours = 8;
+                      break;
+                    case "Fri":
+                      hours = 5;
+
+                      break;
+                  }
+                }
+                date.hours = hours;
+
+                //Max hours
+                let maxHour: number;
+                if (date.day === "Fri") {
+                  maxHour = 5;
+                } else if (date.day === "Sat" || date.day === "Sun") {
+                  maxHour = 0;
+                } else {
+                  maxHour = 8;
+                }
+                if (date.day)
+                  return date.day === "Sat" || date.day === "Sun" ? null : (
+                    <div className="dateBookingList" key={index}>
+                      <p>
+                        {date.day} - {date.date}
+                      </p>
+                      <p>Enter Hours</p>
+                      <input
+                        className="dateBookingHoursInput"
+                        type="number"
+                        max={maxHour}
+                        min="0"
+                        onChange={(e) => handleHours(e.target.value, index)}
+                        defaultValue={hours}
+                        required
+                      />
+                    </div>
+                  );
+              })}
+              <div className="bookingButtonContainer">
+                <button
+                  className="dateBookingButtons buttonSubmit"
+                  onClick={handleSubmitBooking}
+                >
+                  Submit
+                </button>
+                <button
+                  className="dateBookingButtons buttonCancel"
+                  onClick={() => setBookBoolean(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+    );
+  }
 };
 
 export default BookTO;
